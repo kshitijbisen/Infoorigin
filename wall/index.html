@@ -1,0 +1,112 @@
+<html>
+    <script>
+        function calculate(){
+            const n=document.getElementById("n").value;
+            const walls=document.getElementById("walls").value.split('#');
+            const left=document.getElementById("left");
+            left.innerHTML=""
+            const right=document.getElementById("right");
+            right.innerHTML="";
+            let maxRight=walls[walls.length-1];
+            let countRight=1;
+            let maxLeft=walls[0];
+            let countLeft=1;
+            let vL=`${walls[0]}`
+            let vR=`${walls[walls.length-1]} `
+            const f=document.createElement("div");
+            f.style.height=`${walls[0]*20}px`;
+            f.setAttribute("class","green");
+            
+            left.appendChild(f);
+
+            const l=document.createElement("div");
+            l.style.height=`${walls[walls.length-1]*20}px`;
+            l.setAttribute("class","green");
+            
+            right.appendChild(l);
+            for (let i = 1; i < walls.length; i++) {
+                if(walls[i]>maxLeft){
+                    maxLeft=walls[i];
+                    countLeft++;
+                    const child=document.createElement("div");
+                    child.style.height=`${walls[i]*20}px`;
+                    child.setAttribute("class","green");
+                    left.appendChild(child);
+                    vL=vL+" ,"+walls[i]
+                }
+                else{
+                    const child=document.createElement("div");
+                    child.style.height=`${walls[i]*20}px`;
+                    child.setAttribute("class","red");
+                    left.appendChild(child);
+                }
+                if(walls[walls.length-1-i]>maxRight){
+                    maxRight=walls[walls.length-1-i];
+                    countRight++;
+                    const child=document.createElement("div");
+                    child.style.height=`${walls[walls.length-1-i]*20}px`;
+                    child.setAttribute("class","green");
+                    right.prepend(child);
+                    vR=vR+" ,"+walls[walls.length-1-i];
+                }
+                else{
+                    const child=document.createElement("div");
+                    child.style.height=`${walls[walls.length-1-i]*20}px`;
+                    child.setAttribute("class","red");
+                    right.prepend(child);
+                }
+            }
+            document.getElementById("ansLeft").innerHTML=`Ans =${countLeft} Walls visible= ${vL} `
+            document.getElementById("ansRight").innerHTML=`Ans =${countRight} Walls visible= ${vR} `
+        }
+    </script>
+    <style>
+        .green{
+            background-color: greenyellow;
+            width: 10px;
+            
+        }
+        .red{
+            background-color: red;
+            width: 10px;
+            
+        }
+    </style>
+    <body>
+        <input type="number" id="n" placeholder="Enter No. of walls"></input>
+        <input type="text" id="walls" placeholder="Enter Heights of walls"></input>
+        <button type="submit" onclick="calculate()">Submit</button>
+        <div style="display: flex; margin-top: 50px;">
+            <div style="width: 100px;">
+                <div style="border-radius: 50%;height:100px;width: 100px;background-color:dodgerblue;"></div>
+                <div style="display: flex; justify-content: center;">
+                    <div style="background-color: brown;width: 2px; height: 40px;rotate: 30deg;margin-right: 10px;"></div>
+                    <div style="background-color: aqua;width: 2px; height: 80px;"></div>
+                
+                <div style="background-color: brown;width: 2px; height: 40px;rotate: -30deg;margin-left: 10px;""></div>
+            </div>
+            </div>
+            <div id="left" style= "display: flex; margin-left: 10px; border: 2px solid black;height: 200px; width: 1000px;align-items: flex-end;justify-content: space-evenly;">
+
+            </div>
+            <div id="ansLeft"></div>
+        </div>
+
+
+        <div style="display: flex; margin-top: 50px;margin-left: 100px;">
+            <div id="right" style="display: flex; margin-right: 10px; border: 2px solid black;height: 200px; width: 1000px;align-items: flex-end;justify-content: space-evenly;">
+
+            </div>
+            <div style="width: 100px;">
+                <div style="border-radius: 50%;height:100px;width: 100px;background-color:dodgerblue;"></div>
+                <div style="display: flex; justify-content: center;">
+                    <div style="background-color: brown;width: 2px; height: 40px;rotate: 30deg;margin-right: 10px;"></div>
+                    <div style="background-color: aqua;width: 2px; height: 80px;"></div>
+                
+                <div style="background-color: brown;width: 2px; height: 40px;rotate: -30deg;margin-left: 10px;""></div>
+            </div>
+            </div>
+            <div id="ansRight"></div>
+        </div>
+    </body>
+</html>
